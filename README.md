@@ -52,7 +52,7 @@ MARTS
 
 ---
 
-## 📊 Modelagem (Decisões Técnicas)
+## Modelagem (Decisões Técnicas)
 
 ### ⭐ Star Schema
 Separação entre fatos e dimensões para garantir performance e consistência.
@@ -81,7 +81,7 @@ Principais métricas:
 
 ---
 
-## 📊 Dashboard & Insights
+## Dashboard & Insights
 
 - Evolução de receita
 - Funil de conversão
