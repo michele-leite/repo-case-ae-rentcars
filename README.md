@@ -172,13 +172,16 @@ dbt test
 
 ---
 
-## Roadmap
+## Limitações Conhecidas & Melhorias Futuras (Roadmap)
 
-- SCD2
-- CI/CD
-- Observabilidade
-- Testes avançados
+Visando cenários hiper-escaláveis num futuro com maior provisionamento de infraestrutura/equipe, as seguintes abordagens ficariam no topo do backlog técnico:
 
+1. **Testes Estatísticos de Anomalias Dinâmicas**: Utilizar Z-Scores macro e desvios padrões móveis usando testes dbt customizados para substituir lógicas arbitrárias flaggeadas no SQL rígido de outliers de booking (`val > 15000`).
+2. **Surrogate Keys Reais via Hashing**: Atualmente identificadores repassam Pks de cordas (`string`). Num pipeline avançado imporia o uso massificado de `dbt_utils.generate_surrogate_key` nas Primary Keys blindando os domínios via criptografia e aliviando processamento de joins.
+3. **Dimensões do Tipo SCD2 (Slowly Changing Dimensions)**: A aplicação se beneficiaria em rastrear de forma passiva as flutuações sazonais dos *Tiers de Comissão* associados em épocas específicas da `dim_partners`, o que não pode ser recriado fielmente via Drop+Create no estado atual.
+4. **CI/CD Simplificado (Slim CI)**: Trazer o controle pro GitHub Actions validando qualquer Push nos braços das ramificações mediante rodadas de pipeline no schema provisório com suporte e linter (ex: `sqlfluff` no setup do projeto).
+5. **Orquestração com Apache Airflow**: A execução atual dos modelos dbt é disparada manualmente via CLI. Num ambiente produtivo, a evolução natural seria encapsular o pipeline em **DAGs do Airflow** utilizando o operador `BashOperator` ou o `DbtTaskGroup` (via `astronomer-cosmos`), permitindo agendamentos por cron, controle de dependências entre tarefas, retentativas automáticas em falha e monitoramento de SLA — substituindo a operação manual por um pipeline verdadeiramente autônomo.
+6. **Enriquecimento Semântico com LLMs**: A camada analítica atual opera exclusivamente sobre dados estruturados. Uma próxima fronteira seria integrar **Modelos de Linguagem (LLMs)** — como a API da OpenAI ou modelos open-source via HuggingFace — para enriquecer os dados com inteligência semântica: categorização automática de motivos de cancelamento a partir de campos de texto livre, detecção de anomalias de precificação por contexto, e geração de *insights* narrativos automáticos para os relatórios executivos, conectando a inteligência do DW diretamente à linguagem de negócio.
 ---
 
 ## Diferenciais
@@ -192,7 +195,7 @@ dbt test
 
 ## TL;DR
 
-Projeto que demonstra capacidade real de  Analytics Engineer.
+Projeto que demonstra capacidade real de Analytics Engineer.
 
 
 ---
